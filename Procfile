@@ -1,0 +1,1 @@
+web: gunicorn mercytribune.wsgi --log-file -
