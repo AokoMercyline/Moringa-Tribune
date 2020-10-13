@@ -63,3 +63,7 @@ class Article(models.Model):
     #     print('Editor found')
     #     except DoesNotExist:
     #     print('Editor was not found')
+    
+class NewsLetterRecipients(models.Model):
+    name = models.CharField(max_length = 30)
+    email = models.EmailField()
