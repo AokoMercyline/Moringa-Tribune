@@ -1,4 +1,5 @@
 {%extends 'all-news/base.html'%}
+{% load bootstrap3 %}
 {% block content %}
 {{ block.super}}
 
@@ -27,12 +28,16 @@
   {% endfor %}
 
 </div>
-if request.method == 'POST':
-        form = NewsLetterForm(request.POST)
-        if form.is_valid():
-            print('valid')
-    else:
-        form = NewsLetterForm()
-    return render(request, 'all-news/today-news.html', {"date": date,"news":news,"letterForm":form})
+<div class="container-fluid">
+
+  <form  action="{%url 'newsToday'%}" method="post">
+    {%csrf_token%}
+      
+    <!-- {{ letterForm }} -->
+    {% bootstrap_form letterForm layout='inline' %} 
+    <input type="submit" value="Subscribe">
+  </form>    
+
+</div>
 
 {% endblock %}

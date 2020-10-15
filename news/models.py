@@ -1,5 +1,9 @@
 from django.db import models
 import datetime as dt    
+from django.contrib.auth.models import User
+from tinymce.models import HTMLField
+
+
 
 # Create your models here.
 
@@ -9,18 +13,13 @@ class Editor(models.Model):
     email = models.EmailField()
     phone_number = models.CharField(max_length = 10,blank =True)
     
-    def __str__(self):#returns sring representation of our models
+    def __str__(self):#returns string representation of our models
         return self.first_name
     
     def save_editor(self):
         self.save()
         
-    # def delete_editor(self):
-    #     self.delete()
-        
-    # def update_editor(self):
-    #     update_editor()
-        
+
 class Meta:
     ordering = ['first_name']
 
@@ -33,11 +32,11 @@ class tags(models.Model):
     
 class Article(models.Model):
     title = models.CharField(max_length =60)
-    post = models.TextField()
-    editors = models.ForeignKey(Editor, on_delete = models.CASCADE)
+    post = HTMLField()
+    editors = models.ForeignKey(User, on_delete = models.CASCADE)
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add=True)
-    article_image = models.ImageField(upload_to = 'articles/')
+    article_image = models.ImageField(upload_to='article/', blank=True)
     
     
     
@@ -57,12 +56,6 @@ class Article(models.Model):
         news = cls.objects.filter(title__icontains=search_term)
         return news
         
-    
-    # try:
-    #     editor = Editor.objects.get(email = 'aokomercyline34@gmail.com')
-    #     print('Editor found')
-    #     except DoesNotExist:
-    #     print('Editor was not found')
     
 class NewsLetterRecipients(models.Model):
     name = models.CharField(max_length = 30)
