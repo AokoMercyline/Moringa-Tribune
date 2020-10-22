@@ -1,7 +1,9 @@
 {%extends 'all-news/base.html'%}
 {% load bootstrap3 %}
 {% block content %}
+{% load static %}
 {{ block.super}}
+
 
 <div class="container">
 
@@ -29,15 +31,20 @@
 
 </div>
 <div class="container-fluid">
-
-  <form  action="{%url 'newsToday'%}" method="post">
+  <h2 style="color: rgb(3, 31, 3); padding-bottom:20px">Please Subscribe</h2>
+  <form  action="{%url 'newsToday'%}" method="post" style="width: 35vw;">
     {%csrf_token%}
       
     <!-- {{ letterForm }} -->
-    {% bootstrap_form letterForm layout='inline' %} 
-    <input type="submit" value="Subscribe">
+   <p style="color: black;" >{% bootstrap_form letterForm layout='inline' %}</p>
+    <input type="submit" value="Subscribe" style="width: 20vw; border-radius: 50%; color: red;">
   </form>    
 
 </div>
 
+{% endblock %}
+
+<!--End of the block content-->
+{% block scripts %} {{block.super}}
+  <script type="text/javascript" src="{%static 'js/newsletter.js'%}"></script>
 {% endblock %}
